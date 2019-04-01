@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateTimesheetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('timesheets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('book_id');
-            $table->integer('user_id');
-            $table->string('text');
+            $table->integer('SIN');
+            $table->foreign('SIN')->references('SIN')->on('users');
+            $table->integer('month');
+            $table->integer('year');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('timesheets');
     }
 }

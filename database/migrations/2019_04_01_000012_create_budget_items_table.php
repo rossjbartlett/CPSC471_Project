@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthorsTable extends Migration
+class CreateBudgetItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateAuthorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('authors', function (Blueprint $table) {
+        Schema::create('budget_items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('projectID')->unsigned();
+            $table->foreign('projectID')->references('id')->on('projects')->onDelete('cascade');
             $table->string('name');
+            $table->string('date');
+            $table->double('value');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ class CreateAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('budget_items');
     }
 }

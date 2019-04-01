@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubscriptionsTable extends Migration
+class CreateWorksOnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('works_ons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('book_id');
-            $table->integer('user_id');
-            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('projectID');
+            $table->foreign('projectID')->references('id')->on('projects');
+            $table->integer('SIN');
+            $table->foreign('SIN')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('works_ons');
     }
 }
