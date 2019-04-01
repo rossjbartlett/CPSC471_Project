@@ -13,15 +13,25 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        // Id, Email Address (as Username; should be unique), Password, Role, Birthday, Education Field, Account Creation Timestamp
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('fName');
+            $table->string('lName');
+            $table->string('address');
+            $table->string('DOB');
+            $table->double('salary');
+
             $table->string('email')->unique();
-            $table->string('role')->default('visitor');
-            $table->string('birthday');
-            $table->string('education_field');
-            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('isManager');
+            $table->integer('deptID')->nullable();
+            $table->foreign('deptID')->references('id')->on('departments');
+
+            $table->integer('supervisorSIN')->nullable();
+            $table->foreign('supervisorSIN')->references('SIN')->on('users');
+
+
+            $table->integer('deptStartDate')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
