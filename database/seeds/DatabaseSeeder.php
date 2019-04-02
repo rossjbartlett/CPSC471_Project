@@ -15,17 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-			$user = new User();
-			$user->fName = 'Ross';
-			$user->lName = 'Bartlett';
-			$user->SIN = '123456789';
-			$user->DOB = '09/21/1996';
-			$user->email = 'rossjbartlett@gmail.com';
-			$user->address = '123 Story St Calgary';
-			$user->salary = 666123.50;
-			$user->isManager = true;
-			$user->password = 'password';
-			$user->save();
+			// $user = new User();
+			// $user->fName = 'Ross';
+			// $user->lName = 'Bartlett';
+			// $user->SIN = '123456789';
+			// $user->DOB = '09/21/1996';
+			// $user->email = 'rossjbartlett@gmail.com';
+			// $user->address = '123 Story St Calgary';
+			// $user->salary = 666123.50;
+			// $user->isManager = true;
+			// $user->password = 'password';
+			// $user->save();
+			$user = User::create([
+				'email' => 'rossjbartlett@gmail.com',
+				'SIN' => 123456789,
+				'isManager' => false,
+				'fName' => 'Ross',
+				'lName' => 'Bartlett',
+				'address' => '123 Story St Calgary',
+				'DOB' => '09/21/1996',
+				'salary' => 666123.50,
+				'password' => Hash::make('password')
+			]);
 
 			$dept = new Department();
 			$dept->name = 'Research';

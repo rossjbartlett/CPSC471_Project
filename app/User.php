@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         //TODO only manager can change an employees salary, isManager, deptID, deptStartDate, supervisorSIN..
-        'email', 'fName', 'lName', 'DOB', 'salary',  'isManager', 
+        'email', 'SIN', 'address', 'fName', 'lName', 'DOB', 'salary',  'isManager', 
         'deptID', 'deptStartDate','supervisorSIN', 'password'
     ];
 

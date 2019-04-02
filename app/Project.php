@@ -25,7 +25,7 @@ class Project extends Model
       }
 
       public function budgetItems(){
-        return $this->hasMany()(BudgetItem::class);
+        return $this->hasMany(BudgetItem::class);
       }
 
     
