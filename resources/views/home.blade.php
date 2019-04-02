@@ -79,9 +79,12 @@
                     @endif
 
                     You are logged in.<br>
-                    Welcome, {{Auth::user()->email}}!<br>
+                    Welcome, {{Auth::user()->fName}} {{Auth::user()->lName}}!<br>
                     Your ID on this system is {{Auth()->user()->id}}.<br>
-                    Your role is <span style="color:blue"> {{Auth()->user()->role}}</span>
+
+                    @if (Auth()->user()->isManager())
+                        <span style="color:blue">You are a manager.</span>
+                    @endif
 
                 </div>
             </div>

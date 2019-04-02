@@ -20,10 +20,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('books/{book}/subscribe', 'BookController@subscribe');
-Route::post('books/{book}/unsubscribe', 'BookController@unsubscribe');
+// Route::post('books/{book}/subscribe', 'BookController@subscribe');
+// Route::post('books/{book}/unsubscribe', 'BookController@unsubscribe');
 
 Route::resource('books', 'BookController');
 Route::resource('authors', 'AuthorController');
+
+Route::resource('projects', 'ProjectController');
+Route::resource('departments', 'DepartmentController');
+
 Route::resource('users', 'UserController');
-Route::resource('comments', 'CommentController');
+
+
+// Route::resource('comments', 'CommentController');

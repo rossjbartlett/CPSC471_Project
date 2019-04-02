@@ -69,8 +69,8 @@ class User extends Authenticatable
         return $this->hasMany(Equipment::class);
     }
 
-    public function isAdmin(){
-      return $this->role=='Admin';
+    public function isManager(){
+      return $this->isManager;
     }
 
     public function isSubscriber(){
