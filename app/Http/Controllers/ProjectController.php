@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\BudgetItem;
 
 class ProjectController extends Controller
 {
@@ -13,7 +14,7 @@ class ProjectController extends Controller
       $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +22,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        
+        $projs = Project::orderby('id')->get();     //get all
+        return view('projects.index')->with('projects', $projs);
     }
 
     /**
@@ -53,8 +56,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        // the 'findOrFail' basically does this: if(is_null($book)) abort(404);
-        return view('projects.show', compact('project')); // compact() replaces with()    }
+        $budgetItems  = $project->budgetItems();
+
+        $employees  = $project->users();
+        return view('projects.show', compact('project', 'employees', 'budgetItems')); // compact() replaces with()    }
     }
     /**
      * Show the form for editing the specified resource.
