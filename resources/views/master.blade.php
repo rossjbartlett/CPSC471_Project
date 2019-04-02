@@ -58,6 +58,10 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+            
+            .hover-link:hover {
+                color:#85dcf0;
+            }
 
             .m-b-md {
                 margin-bottom: 20px;
