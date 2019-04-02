@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Group 11 Library
+                    Company Management System
                 </div>
 
                 <div class="links">
