@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 			$user = User::create([
 				'email' => 'rossjbartlett@gmail.com',
 				'SIN' => 123456789,
-				'isManager' => false,
+				'isManager' => true,
 				'fName' => 'Ross',
 				'lName' => 'Bartlett',
 				'address' => '123 Story St Calgary',
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
 			$dept = new Department();
 			$dept->name = 'Research';
-			$dept->managerSIN = '123456789';
+			$dept->managerSIN = 123456789;
 			// $dept->manager()->attach($user->id);
 			$dept->managerStartDate = '03/01/2019';
 			$dept->save();
@@ -58,10 +58,11 @@ class DatabaseSeeder extends Seeder
 
 			$worksOn = new WorksOn();
 			$worksOn->hours = 69.3;
-			$dept->SIN = '123456789';
-			$dept->projectID = Project::where('name', 'ILIKE', 'BrainCandy')->first()->id; // attach?;
+			$worksOn->SIN = User::where('fName', 'ILIKE', 'Ross')->first()->SIN;
+			$worksOn->projectID = Project::where('name', 'ILIKE', 'BrainCandy')->first()->id; // attach?;
 			// $worksOn->user()->attach($user->id);
 			// $worksOn->project()->attach($proj->id);
+			$worksOn->save();
 
 		}
 

@@ -35,7 +35,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,9 +46,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        // the 'findOrFail' basically does this: if(is_null($book)) abort(404);
+        return view('projects.show', compact('project')); // compact() replaces with()    }
     }
-
     /**
      * Show the form for editing the specified resource.
      *

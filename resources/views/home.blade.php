@@ -98,13 +98,10 @@
         </div>
 
         <div class="links">
-            @if(Auth()->user()->isAdmin())
-                <a href="/books">Books</a>
-                <a href="/authors">Authors</a>
-                <a href="/users">Users</a>
-            @elseif(Auth()->user()->isSubscriber())
-                <a href="/books">Books</a>
-                <a href="/authors">Authors</a>
+            @if(Auth()->user()->isManager())
+                <a href="/projects">Projects</a>
+                <a href="/departments">Departments</a>
+                <a href="/users">Employees</a>
             @endif    
         </div>
     </div>

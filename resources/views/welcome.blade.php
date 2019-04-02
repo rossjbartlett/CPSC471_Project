@@ -19,7 +19,11 @@
                 <div class="title m-b-md">
                     Company Management System
                 </div>
-               Welcome! Please log in.
+                @if (Auth()->user())
+                    Welcome! You are already logged in.
+                @else
+                    Welcome! Please log in.
+                @endif
             </div>
         </div>
 @stop
