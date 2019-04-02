@@ -25,11 +25,11 @@ class CreateUsersTable extends Migration
 
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('isManager');
+            $table->boolean('isManager')->default(false);
             $table->integer('deptID')->nullable();
             $table->foreign('deptID')->references('id')->on('departments');
 
-            $table->integer('deptStartDate')->nullable();
+            $table->string('deptStartDate')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
@@ -17,8 +18,8 @@ class CreateTimesheetsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('SIN');
             $table->foreign('SIN')->references('SIN')->on('users');
-            $table->integer('month');
-            $table->integer('year');
+            $table->integer('month')->unsigned();
+            $table->integer('year')->unsigned();
             $table->timestamps();
         });
     }

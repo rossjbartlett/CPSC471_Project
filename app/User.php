@@ -18,7 +18,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'role', 'birthday', 'education_field', 'password'
+        //TODO only manager can change an employees salary, isManager, deptID, deptStartDate, supervisorSIN..
+        'email', 'fName', 'lName', 'DOB', 'salary',  'isManager', 
+        'deptID', 'deptStartDate','supervisorSIN', 'password'
     ];
 
     /**
@@ -44,16 +46,27 @@ class User extends Authenticatable
         return $this->hasMany(Book::class);
     }
 
-    //a user can have many subscription
-    public function subscriptions(){
-        return $this->hasMany(Subscription::class);
+    //TODO return just the projects they work_on
+    public function projects(){
+        return $this->hasMany(WorksOn::class);
     }
 
-    //TODO: may want another function to return all the books that the user has EVER subscribed to?
+    public function timesheets(){
+        return $this->hasMany(Timesheet::class);
+    }
 
-     //get the comments that the user has made
-     public function comments(){
-        return $this->hasMany(Comment::class);
+    public function department(){
+        return $this->belongsTo(Department::class);
+    }
+
+    //TODO return just the numbers
+    public function phoneNumbers(){
+        return $this->hasMany(EmployeePhone::class);
+    }
+
+    //equipment they currently have rented out
+    public function equipment(){
+        return $this->hasMany(Equipment::class);
     }
 
     public function isAdmin(){

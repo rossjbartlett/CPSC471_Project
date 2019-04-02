@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Book;
-use App\Author;
+use App\User;
+use App\Project;
+use App\Department;
+use App\WorksOn;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,39 +15,44 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		if (($handle = fopen ( public_path () . '/Lab4Books.csv', 'r' )) !== FALSE) {
-			while ( ($data = fgetcsv ( $handle, ',' )) !== FALSE ) {
-				try {
-					$b_data = new Book ();
-					$b_data->ISBN = trim($data [0]);
-					$b_data->name = trim($data [1]);
-					$b_data->publication_year = trim($data [3]);
-					$b_data->publisher = trim($data [4]);
-					$b_data->image = trim($data [5]);
-					$b_data->save ();
-					$book = Book::where('ISBN', $data[0])->first();
-					$authNames = $data[2];
-					$auths = explode(",", $authNames);
-					foreach($auths as $name) {
-						$name = trim($name, " \"\n\t\r");
-						if (Author::where('name', 'ILIKE', $name)->exists() != 1) {
-							$a_data = new Author();
-							$a_data->name = $name;
-							$a_data->save();
-							//$a_id = $a_data->id;
-							$book->authors()->attach($a_data->id);
-						}
-						else {
-						//	$a_id = Author::where('name', 'ILIKE', trim($data[2]))->first()->id;
-							$book->authors()->attach(Author::where('name', 'ILIKE', $name)->first()->id);
-						}
-						//$book->authors()->attach($a_id);
-					}
-				} catch (Exception $e) {
-					//
-				}
-			}
-			fclose ( $handle );
+			$user = new User();
+			$user->fName = 'Ross';
+			$user->lName = 'Bartlett';
+			$user->SIN = '123456789';
+			$user->DOB = '09/21/1996';
+			$user->email = 'rossjbartlett@gmail.com';
+			$user->address = '123 Story St Calgary';
+			$user->salary = 666123.50;
+			$user->isManager = true;
+			$user->password = 'password';
+			$user->save();
+
+			$dept = new Department();
+			$dept->name = 'Research';
+			$dept->managerSIN = '123456789';
+			// $dept->manager()->attach($user->id);
+			$dept->managerStartDate = '03/01/2019';
+			$dept->save();
+
+			$user->deptID = Department::where('name', 'ILIKE', 'Research')->first()->id; // attach?
+			$user->deptStartDate = '03/01/2019';
+			$user->save();
+
+
+			$proj = new Project();
+			$proj->name = 'BrainCandy';
+			$proj->deptID = Department::where('name', 'ILIKE', 'Research')->first()->id; // attach?
+			$proj->budget = 1000000;
+			$proj->save();
+
+			$worksOn = new WorksOn();
+			$worksOn->hours = 69.3;
+			$dept->SIN = '123456789';
+			$dept->projectID = Project::where('name', 'ILIKE', 'BrainCandy')->first()->id; // attach?;
+			// $worksOn->user()->attach($user->id);
+			// $worksOn->project()->attach($proj->id);
+
 		}
-		}
+
+		
 }

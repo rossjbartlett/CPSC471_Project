@@ -15,9 +15,9 @@ class CreateShiftsTable extends Migration
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('date');
-            $table->string('startTime');
-            $table->string('endTime');
+            $table->integer('day')->unsigned();
+            $table->string('startTime')->unsigned();
+            $table->string('endTime')->unsigned();
             $table->integer('SIN');
             $table->foreign('SIN')->references('SIN')->on('users')->onDelete('cascade');
             $table->integer('month')->unsigned();

@@ -19,6 +19,8 @@ class CreateWorksOnsTable extends Migration
             $table->foreign('projectID')->references('id')->on('projects');
             $table->integer('SIN');
             $table->foreign('SIN')->references('id')->on('users')->onDelete('cascade');
+            $table->double('hours')->unsigned();
+
             $table->timestamps();
         });
     }
