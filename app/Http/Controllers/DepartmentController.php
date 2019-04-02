@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -17,7 +17,7 @@
 </div>
 
 <h4> Name: {{$user->fName}} {{$user->lName}}</h4>
-<h4> Department: {{$user->deptID}} </h4>
+<h4> Department ID: {{$user->deptID}} </h4>
 
 
 <!--  Show the users projects -->
