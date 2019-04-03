@@ -66,8 +66,10 @@ class ProjectController extends Controller
     {
         $budgetItems  = $project->budgetItems();
 
-        $employees  = $project->users();
-        return view('projects.show', compact('project', 'employees', 'budgetItems')); // compact() replaces with()    }
+        // $employees  = $project->users();
+        $employees_hours = $project->employee_hours();
+        // dd($employees_hours);
+        return view('projects.show', compact('project', 'employees_hours', 'budgetItems')); // compact() replaces with()    }
     }
     /**
      * Show the form for editing the specified resource.

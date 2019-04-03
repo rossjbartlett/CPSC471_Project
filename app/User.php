@@ -56,10 +56,21 @@ class User extends Authenticatable
         $works = $this->works_on();
         $current_projects  = [];
         foreach($works as $w) {
-            $p = Project::where('id', $w->projectID)->get()->first();
-            array_push($current_projects, $p);
+            $p = Project::find($w->projectID);
+            if($p) array_push($current_projects, $p);
         }
         return $current_projects;
+    }
+
+    //retunr projects AND the hours worked 
+    public function projects_hours(){
+        $projects_hours = [];
+        $works = $this->works_on();
+        foreach($works as $w) {
+          $p = Project::find($w->projectID);
+          if($p) array_push($projects_hours, ['project'=>$p, 'hours'=>$w->hours]);
+        }
+        return $projects_hours;
     }
 
     public function timesheets(){
@@ -67,7 +78,8 @@ class User extends Authenticatable
     }
 
     public function department(){
-        return $this->belongsTo(Department::class);
+        // return $this->belongsTo(Department::class);
+        return Department::find($this->deptID);
     }
 
     //TODO return just the numbers

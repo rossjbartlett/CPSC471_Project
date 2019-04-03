@@ -46,9 +46,10 @@ class UserController extends Controller
         //     }
         // }
 
-        $current_projects  = $user->projects();
+        // $current_projects  = $user->projects();
+        $projects_hours  = $user->projects_hours();
 
-        return view('users.show', compact('user', 'current_projects'));
+        return view('users.show', compact('user', 'projects_hours'));
     }
 
 
