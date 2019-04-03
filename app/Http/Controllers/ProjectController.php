@@ -12,6 +12,8 @@ class ProjectController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
+
       $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
     }
 
@@ -23,8 +25,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        
-        $projs = Project::orderby('id')->get();     //get all
+        if(Auth()->User()->isManager())
+            $projs = Project::orderby('id')->get();     //get all
+        else
+            $projs = Auth()->User()->projects();     //get only projects they work on
         return view('projects.index')->with('projects', $projs);
     }
 
@@ -64,6 +68,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $current_user = Auth()->User();
+        if(!$current_user->isManager() && !$current_user->isWorkingOn($project->id)){
+            //if not manager, only allow users to see their own department
+            return redirect('home');
+        }
+
         $budgetItems  = $project->budgetItems();
 
         // $employees  = $project->users();
@@ -108,6 +118,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        //TODO? or is it necessary for us?
     }
 }

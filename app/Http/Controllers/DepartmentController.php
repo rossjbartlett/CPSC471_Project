@@ -10,7 +10,8 @@ class DepartmentController extends Controller
 
     public function __construct()
     {
-      $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
+        $this->middleware('auth');
+        $this->middleware('manager', ['only'=>'index', 'only'=>'store', 'only'=>'edit', 'only'=>'create']);
     }
 
     /**
@@ -56,6 +57,11 @@ class DepartmentController extends Controller
     {
         if(!ctype_digit($id)){ // string consists of all digs, thus is an int
             abort(404);
+        }
+        $current_user = Auth()->User();
+        if(!$current_user->isManager() && $id!=$current_user->deptID){
+            //if not manager, only allow users to see their own department
+            return redirect('home');
         }
         $department = Department::findOrFail($id);
         // the 'findOrFail' basically does this: if(is_null($book)) abort(404);

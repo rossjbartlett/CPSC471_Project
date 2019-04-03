@@ -45,6 +45,8 @@ class DatabaseSeeder extends Seeder
 			$dept->managerStartDate = '03/01/2019';
 			$dept->save();
 
+
+
 			$user->deptID = Department::where('name', 'ILIKE', 'Research')->first()->id; // attach?
 			$user->deptStartDate = '03/01/2019';
 			$user->save();
@@ -60,6 +62,44 @@ class DatabaseSeeder extends Seeder
 			$worksOn->hours = 69.3;
 			$worksOn->SIN = User::where('fName', 'ILIKE', 'Ross')->first()->SIN;
 			$worksOn->projectID = Project::where('name', 'ILIKE', 'BrainCandy')->first()->id; // attach?;
+			// $worksOn->user()->attach($user->id);
+			// $worksOn->project()->attach($proj->id);
+			$worksOn->save();
+
+
+			$carmen = User::create([
+				'email' => 'carmen@hotmail.ca',
+				'SIN' => 987654321,
+				'isManager' => false,
+				'fName' => 'Carmen',
+				'lName' => 'Ngo',
+				'address' => '321 Varsity Ave Calgary',
+				'DOB' => '03/05/1996',
+				'salary' => 3000000,
+				'password' => Hash::make('password')
+			]);
+
+
+			$cs_dept = Department::create([
+				'name' => 'Computer Science',
+				'managerSIN' => null,
+				'managerStartDate' => null
+			]);
+
+			$carmen->deptID = $cs_dept->id;
+			$carmen->deptStartDate = '04/02/2019';
+			$carmen->save();
+
+			$projX = new Project();
+			$projX->name = 'Project X';
+			$projX->deptID = $cs_dept->id;
+			$projX->budget = 9000;
+			$projX->save();
+
+			$worksOn = new WorksOn();
+			$worksOn->hours = 10.5;
+			$worksOn->SIN = $carmen->SIN;
+			$worksOn->projectID = $projX->id;
 			// $worksOn->user()->attach($user->id);
 			// $worksOn->project()->attach($proj->id);
 			$worksOn->save();

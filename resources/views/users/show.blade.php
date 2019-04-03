@@ -19,8 +19,22 @@
 <h4> DOB: {{$user->DOB}}</h4>
 <h4> Department: <a href="{{action('DepartmentController@show',[$user->deptID])}}">
                 {{$user->department()->name}}</a>
-                </h4>
-<h4> isManager: {{$user->isManager}}</h4>
+</h4>
+<hr>
+@if($user->isManager)
+<h5>{{$user->fName}} is a Manager.</h5>
+<h4> Managed Department(s): <h4>
+  <div style="margin-left: 50px; font-size: 20px">
+    @foreach($user->managedDepartments() as $d)
+        -<a href="{{action('DepartmentController@show',[$d->id])}}">
+          {{$d->name}}
+        </a><br>
+    @endforeach
+  </div>
+ @else 
+ <h5>{{$user->fName}} is not a Manager.</h5>
+
+@endif
 
 <hr>
 <!--  Show the users projects and hours -->

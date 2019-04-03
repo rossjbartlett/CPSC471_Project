@@ -5,13 +5,18 @@
     <h1> {{$department->name}} Department</h1>
     <hr>
         <h2> ID: {{$department->id}}</h2>
+        <!-- <h4> Manager SIN: {{$department->managerSIN}}</h4> -->
 
-        <h4> Manager SIN: {{$department->managerSIN}}</h4>
-        <h4> Manager Start Date: {{$department->managerStartDate}}</h4>
+        @if($department->hasManager())
+          <h4> Manager: <a href="{{action('UserController@show',[$department->manager()->id])}}">
+                  {{$department->manager()->fName}} {{$department->manager()->lName}}</a>
+          </h4>
+          <h4> Manager Start Date: {{$department->managerStartDate}}</h4>
+        @else
+          This department has no manager.
+        @endif
 
-        @if(Auth::check())
-
-          @if(Auth::user()->isManager())
+          @if(Auth::check() && Auth::user()->isManager())
               <div class="btn-group-vertical" style="float:right;font-size:15px;padding:5px">
                   <!--  DELETE BUTTON   -->
                   {!! Form::model($department, ['method'=>'DELETE', 'action'=>['DepartmentController@destroy',$department->id]]) !!}
@@ -26,7 +31,6 @@
               </div>
           @endif
 
-        @endif
 
         <br>
         <hr>

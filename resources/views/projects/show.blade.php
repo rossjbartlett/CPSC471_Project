@@ -37,8 +37,7 @@
       <div style="margin-left: 50px; font-size: 20px">
         @foreach($employees_hours as $eh)
             -<a href="{{action('UserController@show', [$eh['employee']['id']] )}}">
-              {{$eh['employee']['fName']}} {{$eh['employee']['lName']}}
-            </a>, {{$eh['hours']}}h<br>
+              {{$eh['employee']['fName']}} {{$eh['employee']['lName']}}</a>, {{$eh['hours']}}h<br>
         @endforeach
       </div>
     @else
