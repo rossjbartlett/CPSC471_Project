@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('SIN')->unsigned()->unique();
+
             $table->string('fName');
             $table->string('lName');
             $table->string('address');
@@ -23,15 +25,11 @@ class CreateUsersTable extends Migration
 
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('isManager');
+            $table->boolean('isManager')->default(false);
             $table->integer('deptID')->nullable();
             $table->foreign('deptID')->references('id')->on('departments');
 
-            $table->integer('supervisorSIN')->nullable();
-            $table->foreign('supervisorSIN')->references('SIN')->on('users');
-
-
-            $table->integer('deptStartDate')->nullable();
+            $table->string('deptStartDate')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

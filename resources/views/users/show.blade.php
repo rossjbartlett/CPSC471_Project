@@ -5,7 +5,7 @@
 <h1> {{$user->email}}</h1>
 <hr>
 
-<h4> Role: {{$user->role}}</h4>
+<h4> isManager: {{$user->isManager}}</h4>
 
 <div style="padding-right: 80px;float: right;">
 
@@ -16,22 +16,22 @@
     {!! Form::close() !!}
 </div>
 
-<h4> Birthday: {{$user->birthday}} </h4>
-<h4> Education Field: {{$user->education_field}} </h4>
+<h4> Name: {{$user->fName}} {{$user->lName}}</h4>
+<h4> Department ID: {{$user->deptID}} </h4>
 
-<!--  Show the users subscriptions -->
-@if(sizeof($current_subscribed_books)>0)
-<h4> Subscription(s): <h4>
+
+<!--  Show the users projects -->
+@if(sizeof($current_projects)>0)
+<h4> Project(s): <h4>
   <div style="margin-left: 50px; font-size: 20px">
-    @foreach($current_subscribed_books as $book)
-      @if($user->isCurrentSubscriber($book->id))
-        {{$book->name}}
-      @endif
-      <br>
+    @foreach($current_projects as $proj)
+        -<a href="{{action('ProjectController@show',[$proj->id])}}">
+          {{$proj->name}}
+        </a><br>
     @endforeach
   </div>
 @else
-<p> This user is not subscribed to any books.<p>
+<p> This employee has no current projects.<p>
 @endif
 
 @stop 

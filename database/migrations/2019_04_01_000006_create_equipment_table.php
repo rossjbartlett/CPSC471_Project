@@ -17,14 +17,14 @@ class CreateEquipmentTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->double('cost');
-            $table->string('maintenanceFreq');
-            $table->string('lastMaintenance');
+            $table->string('maintenanceFreq')->nullable();
+            $table->string('lastMaintenance')->nullable();
 
             $table->integer('userSIN')->nullable();
             $table->foreign('userSIN')->references('SIN')->on('users');
 
             $table->integer('supplierID');
-            $table->foreign('supplierID')->references('id')->on('suppliers');
+            $table->foreign('supplierID')->references('id')->on('suppliers')->onDelete('cascade');
 
             $table->timestamps();
         });

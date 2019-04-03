@@ -18,7 +18,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'role', 'birthday', 'education_field', 'password'
+        //TODO only manager can change an employees salary, isManager, deptID, deptStartDate, supervisorSIN..
+        'email', 'SIN', 'address', 'fName', 'lName', 'DOB', 'salary',  'isManager', 
+        'deptID', 'deptStartDate','supervisorSIN', 'password'
     ];
 
     /**
@@ -44,25 +46,44 @@ class User extends Authenticatable
         return $this->hasMany(Book::class);
     }
 
-    //a user can have many subscription
-    public function subscriptions(){
-        return $this->hasMany(Subscription::class);
+    public function works_on(){
+        // return $this->hasMany(WorksOn::class);    //TODO this isnt working because its looking for userID in works_on to relate the 2 tables, we need it to use SIN instead 
+        return $works = WorksOn::where('SIN', '=', $this->SIN)->get();
     }
 
-    //TODO: may want another function to return all the books that the user has EVER subscribed to?
-
-     //get the comments that the user has made
-     public function comments(){
-        return $this->hasMany(Comment::class);
+    public function projects(){
+        // return $this->hasMany(WorksOn::class);    //TODO this isnt working because its looking for userID in works_on to relate the 2 tables, we need it to use SIN instead 
+        $works = $this->works_on();
+        $current_projects  = [];
+        foreach($works as $w) {
+            $p = Project::where('id', $w->projectID)->get()->first();
+            array_push($current_projects, $p);
+        }
+        return $current_projects;
     }
 
-    public function isAdmin(){
-      return $this->role=='Admin';
+    public function timesheets(){
+        return $this->hasMany(Timesheet::class);
     }
 
-    public function isSubscriber(){
-      return $this->role=='Subscriber';
+    public function department(){
+        return $this->belongsTo(Department::class);
     }
+
+    //TODO return just the numbers
+    public function phoneNumbers(){
+        return $this->hasMany(EmployeePhone::class);
+    }
+
+    //equipment they currently have rented out
+    public function equipment(){
+        return $this->hasMany(Equipment::class);
+    }
+
+    public function isManager(){
+        return $this->isManager;
+    }
+
 
     // has the user ever subscribed to book
     public function hasEverSubscribed($book_id)

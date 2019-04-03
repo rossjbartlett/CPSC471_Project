@@ -49,10 +49,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'fName' => ['required', 'string', 'max:50'],
+            'lName' => ['required', 'string', 'max:50'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role' => ['string'],
-            'birthday' => ['date' , 'date_format:Y-m-d'], 
-            'education_field' => ['string'],
+            'SIN' => ['required', 'numeric', 'digits:9', 'unique:users' ],
+            'address' => ['required', 'string', 'max:255'],
+            'DOB' => ['required', 'string', 'max:50'], //['date' , 'date_format:Y-m-d'], 
+            'salary' => ['required', 'numeric'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -67,10 +70,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'email' => $data['email'],
-            'role' => 'Subscriber',
-            'birthday' => $data['birthday'],
-            'education_field' => $data['education_field'],
-            'password' => Hash::make($data['password']),
+            'SIN' => $data['SIN'],
+            'isManager' => false,
+            'fName' => $data['fName'],
+            'lName' => $data['lName'],
+            'address' => $data['address'],
+            'DOB' => $data['DOB'],
+            'salary' => $data['salary'],
+            'password' => Hash::make($data['password'])
         ]);
     }
 }

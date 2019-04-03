@@ -11,9 +11,11 @@ use App\Subscription;
 class UserController extends Controller
 {
 
+
+
     public function __construct()
     {
-      $this->middleware('admin');
+      $this->middleware('manager');
     }
 
 
@@ -35,15 +37,18 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $current_subscribed_books = [];
-          //want to change here: only show list of books that are currently subscribed so not subscribed table
-        foreach($user->subscriptions as $subscription) {
-            $book = Book::where('id', $subscription->book_id)->get()->first();
-            if($user->isCurrentSubscriber($book->id)) {
-                array_push($current_subscribed_books, $book);
-            }
-        }
-        return view('users.show', compact('user', 'current_subscribed_books'));
+        // $current_subscribed_books = [];
+        //   //want to change here: only show list of books that are currently subscribed so not subscribed table
+        // foreach($user->subscriptions as $subscription) {
+        //     $book = Book::where('id', $subscription->book_id)->get()->first();
+        //     if($user->isCurrentSubscriber($book->id)) {
+        //         array_push($current_subscribed_books, $book);
+        //     }
+        // }
+
+        $current_projects  = $user->projects();
+
+        return view('users.show', compact('user', 'current_projects'));
     }
 
 

@@ -41,7 +41,7 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 78;
         }
 
         .links > a {
@@ -79,9 +79,12 @@
                     @endif
 
                     You are logged in.<br>
-                    Welcome, {{Auth::user()->email}}!<br>
+                    Welcome, {{Auth::user()->fName}} {{Auth::user()->lName}}!<br>
                     Your ID on this system is {{Auth()->user()->id}}.<br>
-                    Your role is <span style="color:blue"> {{Auth()->user()->role}}</span>
+
+                    @if (Auth()->user()->isManager())
+                        <span style="color:blue">You are a manager.</span>
+                    @endif
 
                 </div>
             </div>
@@ -91,17 +94,14 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Group 11 Library
+            Company Management System
         </div>
 
         <div class="links">
-            @if(Auth()->user()->isAdmin())
-                <a href="/books">Books</a>
-                <a href="/authors">Authors</a>
-                <a href="/users">Users</a>
-            @elseif(Auth()->user()->isSubscriber())
-                <a href="/books">Books</a>
-                <a href="/authors">Authors</a>
+            @if(Auth()->user()->isManager())
+                <a href="/projects">Projects</a>
+                <a href="/departments">Departments</a>
+                <a href="/users">Employees</a>
             @endif    
         </div>
     </div>

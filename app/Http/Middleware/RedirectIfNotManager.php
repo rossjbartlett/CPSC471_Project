@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RedirectIfNotAdmin
+class RedirectIfNotManager
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class RedirectIfNotAdmin
         {
             return redirect('login');
         }
-        if(!$request->user()->isAdmin()) // check if user is an admin
+        if(!$request->user()->isManager()) // check if user is a manager
         {
             return redirect('home');
         }

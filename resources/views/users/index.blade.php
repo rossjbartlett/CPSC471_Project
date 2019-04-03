@@ -17,7 +17,7 @@
 	<div class="col-md-10">
 	    <h3>
 	        <a href="{{action('UserController@show',[$user->id])}}">
-	            {{$user->email}}
+				{{$user->fName}} {{$user->lName}}, {{$user->SIN}}
 	        </a>
 	    </h3>
 	</div>

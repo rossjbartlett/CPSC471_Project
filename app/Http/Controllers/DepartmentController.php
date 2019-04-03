@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        
+        $depts = Department::orderby('id')->get(); //get all
+        return view('departments.index')->with('departments',$depts);
     }
 
     /**
@@ -44,9 +52,18 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($id) //(Department $department)
     {
-        //
+        if(!ctype_digit($id)){ // string consists of all digs, thus is an int
+            abort(404);
+        }
+        $department = Department::findOrFail($id);
+        // the 'findOrFail' basically does this: if(is_null($book)) abort(404);
+        
+        $projects  = $department->projects();
+        $employees  = $department->users();
+
+        return view('departments.show', compact('department', 'projects', 'employees')); // compact() replaces with()
     }
 
     /**
