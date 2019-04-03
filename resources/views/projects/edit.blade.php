@@ -3,12 +3,12 @@
 @section('content')
 
 
-    <h1>Edit Book: {!! $book->first()->title !!}</h1>
+    <h1>Edit Project: {!! $project->name !!}</h1>
     <hr>
 
 
-    {!! Form::model($book, ['method'=>'PATCH', 'action'=>['BookController@update',$book->id]]) !!}
-    @include ('books.form', ['submitButtonText'=>'Update Book', 'editFlag' =>'true'])
+    {!! Form::model($project, ['method'=>'PATCH', 'action'=>['ProjectController@update',$project->id]]) !!}
+    @include ('projects.form', ['submitButtonText'=>'Update Project', 'editFlag' =>'true'])
     {!! Form::close() !!}
 
     @include ('errors.list')

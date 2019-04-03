@@ -3,12 +3,12 @@
 @section('content')
 
 
-    <h1>Add New Book to Library</h1>
+    <h1>Create New Project</h1>
     <hr>
 
   
-    {!! Form::open(['url'=>'books']) !!}
-        @include ('books.form', ['submitButtonText'=>'Add Book', 'editFlag' =>'false'])
+    {!! Form::open(['url'=>'projects']) !!}
+        @include ('projects.form', ['submitButtonText'=>'Create Project', 'editFlag' =>'false'])
     {!! Form::close() !!}
 
     

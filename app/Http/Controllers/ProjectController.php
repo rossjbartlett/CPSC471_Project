@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use App\BudgetItem;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -34,19 +35,26 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
+
     }
 
-    /**
+     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Http\Requests\BookRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
-        
+        $project  = new Project();
+        $project->name = $request->input('name');
+        $project->budget = $request->input('budget');
+        $project->deptID = $request->input('deptID');
+        $project->save();
+        return redirect('projects');
     }
+
 
     /**
      * Display the specified resource.
@@ -69,7 +77,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view ('projects.edit', compact('project'));
     }
 
     /**
@@ -79,9 +87,15 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, Project $project)
     {
-        //
+        $project->update([
+            'name' => $request->input('name'),
+            'budget' => $request->input('budget'),
+            'deptID' => $request->input('deptID'),
+            'updated_at' => \Carbon\Carbon::now()
+        ]);
+        return redirect('projects');
     }
 
     /**

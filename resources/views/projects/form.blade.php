@@ -5,36 +5,16 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('ISBN', 'ISBN:') !!}
-    @if($editFlag=='true') 
-        {!! Form::text('ISBN', null, ['class'=>'form-control', 'readonly']) !!}
-    @else
-        {!! Form::text('ISBN', null, ['class'=>'form-control']) !!}
-    @endif
+    {!! Form::label('budget', 'Budget:') !!}
+    {!! Form::text('budget', null, ['class'=>'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {!! Form::label('author', 'Author(s):') !!}
-    @if($editFlag=='true') 
-        {!! Form::text('author', $authString, ['class'=>'form-control', 'placeholder' => 'seperate authors by a comma and a space (Mark Fitzjerald, John Green)']) !!}
-    @else
-        {!! Form::text('author', null, ['class'=>'form-control', 'placeholder' => 'seperate authors by a comma and space (Mark Fitzjerald, John Green)']) !!}
-    @endif  
+    {!! Form::label('deptID', 'Controlling Department ID:') !!}
+    {!! Form::text('deptID', null, ['class'=>'form-control']) !!}
+
 </div>
 
-
-<div class="form-group">
-    {!! Form::label('publisher', 'Publisher:') !!}
-    {!! Form::text('publisher', null, ['class'=>'form-control']) !!}
-</div>
-<div class="form-group">
-    {!! Form::label('publication_year', 'Publication Year:') !!}
-    {!! Form::text('publication_year', null, ['class'=>'form-control']) !!}
-</div>
-<div class="form-group">
-    {!! Form::label('image', 'Image:') !!}
-    {!! Form::text('image', null, ['class'=>'form-control']) !!}
-</div>
 <div class="form-group">
     {!! Form::submit($submitButtonText, ['class'=>'btn btn-primary form-control']) !!}
 </div> 
