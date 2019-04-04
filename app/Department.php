@@ -27,10 +27,15 @@ class Department extends Model
         return Project::where('deptID', $this->id)->get();
       }
   
+      public function hasManager(){
+        return ($this->managerSIN != null);
+      }
   
       //get the manager
       public function manager(){
-        //TODO does this work?
-        return $this->belongsTo(User::class);
+        // return $this->belongsTo(User::class);
+        if(!$this->hasManager()) return null;
+        return $user = user::where('SIN', '=', $this->managerSIN)->get()->first();
+
       }
 }

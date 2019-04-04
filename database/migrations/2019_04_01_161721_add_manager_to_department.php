@@ -16,7 +16,7 @@ class AddManagerToDepartment extends Migration
         Schema::table('departments', function (Blueprint $table) {    
             $table->integer('managerSIN')->nullable();
             $table->foreign('managerSIN')->references('SIN')->on('users');
-            $table->string('managerStartDate');
+            $table->string('managerStartDate')->nullable();
         });
     }
 
