@@ -26,6 +26,22 @@
             {!! Form::submit('Edit', ['class' => 'btn btn-outline-danger btn-sm']) !!}
             {!! Form::close() !!}
         </div>
+    @else
+        @if($equipment->userSIN == null)
+            <div class="btn-group-vertical" style="float:right;font-size:15px;padding:5px">
+                <!-- EDIT BUTTON   -->
+                {!! Form::model($equipment, ['method'=>'GET', 'action'=>['EquipmentController@rent',$equipment->id]]) !!}
+                {!! Form::submit('Rent Equipment', ['class' => 'btn btn-outline-danger btn-sm']) !!}
+                {!! Form::close() !!}
+            </div>
+        @elseif($equipment->userSIN == Auth::user()->SIN)
+            <div class="btn-group-vertical" style="float:right;font-size:15px;padding:5px">
+                <!-- EDIT BUTTON   -->
+                {!! Form::model($equipment, ['method'=>'GET', 'action'=>['EquipmentController@return',$equipment->id]]) !!}
+                {!! Form::submit('Return Equipment', ['class' => 'btn btn-outline-danger btn-sm']) !!}
+                {!! Form::close() !!}
+            </div>
+        @endif
     @endif
 
     <br>

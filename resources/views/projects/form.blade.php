@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('departmentId', 'Controlling Department ID:') !!}
+    {!! Form::label('deptID', 'Controlling Department ID:') !!}
     {!! Form::text('deptID', null, ['class'=>'form-control']) !!}
 
 </div>

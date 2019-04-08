@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $project  = new Project();
         $project->name = $request->input('name');
         $project->budget = $request->input('budget');
-        $project->deptID = $request->input('departmentId');
+        $project->deptID = $request->input('deptID');
         $project->save();
         return redirect('projects');
     }
@@ -104,7 +104,7 @@ class ProjectController extends Controller
         $project->update([
             'name' => $request->input('name'),
             'budget' => $request->input('budget'),
-            'deptID' => $request->input('departmentId'),
+            'deptID' => $request->input('deptID'),
             'updated_at' => \Carbon\Carbon::now()
         ]);
         return redirect('projects');

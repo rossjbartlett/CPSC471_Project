@@ -28,8 +28,8 @@ class EquipmentRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'cost' => 'required|numeric',
-            'maintenanceFrequency' => 'required',
-            'supplierId' => 'required|numeric|exists:suppliers,id'
+            'maintenanceFreq' => 'required',
+            'supplierID' => 'required|numeric|exists:suppliers,id'
         ];
     }
 }

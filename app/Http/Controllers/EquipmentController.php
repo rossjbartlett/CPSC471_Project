@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Equipment;
 use App\Http\Requests\EquipmentRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EquipmentController extends Controller
 {
@@ -22,8 +23,14 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        $equipment = Equipment::orderBy('name')->get();
-        return view('equipment.index')->with('equipment', $equipment);
+        if(Auth::user()->isManager())
+            $equipment = Equipment::orderBy('name')->get();
+        else {
+            $equipment = Equipment::where('userSIN', null)->orderBy('name')->get();
+            $currently_renting = Equipment::where('userSIN', Auth::user()->SIN)->orderBy('name')->get();
+        }
+
+        return view('equipment.index', compact('equipment', 'currently_renting'));
     }
 
     /**
@@ -47,8 +54,8 @@ class EquipmentController extends Controller
         $equipment = new Equipment();
         $equipment->name = $request->input('name');
         $equipment->cost = $request->input('cost');
-        $equipment->maintenanceFreq = $request->input('maintenanceFrequency');
-        $equipment->supplierID = $request->input('supplierId');
+        $equipment->maintenanceFreq = $request->input('maintenanceFreq');
+        $equipment->supplierID = $request->input('supplierID');
         $equipment->save();
         return redirect('equipment');
     }
@@ -99,7 +106,13 @@ class EquipmentController extends Controller
      */
     public function update(EquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update([
+            'name' => $request->input('name'),
+            'cost' => $request->input('cost'),
+            'maintenanceFreq' => $request->input('maintenanceFreq'),
+            'supplierID' => $request->input('supplierID'),
+        ]);
+        return redirect('equipment');
     }
 
     /**
@@ -112,6 +125,20 @@ class EquipmentController extends Controller
     {
         Equipment::findOrFail($id)->delete();
 
+        return redirect('equipment');
+    }
+
+    public function rent($id){
+        $equipment = Equipment::find($id);
+        $equipment->userSIN = Auth::user()->SIN;
+        $equipment->save();
+        return redirect('equipment');
+    }
+
+    public function return($id){
+        $equipment = Equipment::find($id);
+        $equipment->userSIN = null;
+        $equipment->save();
         return redirect('equipment');
     }
 }
