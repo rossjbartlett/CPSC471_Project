@@ -14,7 +14,7 @@ class ProjectController extends Controller
     {
         $this->middleware('auth');
 
-      $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create']);
+      $this->middleware('manager', ['only'=>'store', 'only'=>'edit', 'only'=>'create', 'only'=>'destroy']);
     }
 
 
@@ -46,7 +46,7 @@ class ProjectController extends Controller
      /**
      * Store a newly created resource in storage.
      *
-     * @param  \Http\Requests\BookRequest $request
+     * @param  \Http\Requests\ProjectRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProjectRequest $request)
@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $project  = new Project();
         $project->name = $request->input('name');
         $project->budget = $request->input('budget');
-        $project->deptID = $request->input('deptID');
+        $project->deptID = $request->input('departmentId');
         $project->save();
         return redirect('projects');
     }
@@ -104,7 +104,7 @@ class ProjectController extends Controller
         $project->update([
             'name' => $request->input('name'),
             'budget' => $request->input('budget'),
-            'deptID' => $request->input('deptID'),
+            'deptID' => $request->input('departmentId'),
             'updated_at' => \Carbon\Carbon::now()
         ]);
         return redirect('projects');
@@ -116,8 +116,10 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //TODO? or is it necessary for us?
+        Project::findOrFail($id)->delete();
+
+        return redirect('projects');
     }
 }

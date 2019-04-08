@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\Http\Requests\EquipmentRequest;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('manager', ['only' => 'create', 'only' => 'edit', 'only' => 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        $equipment = Equipment::orderBy('name')->get();
+        return view('equipment.index')->with('equipment', $equipment);
     }
 
     /**
@@ -24,7 +33,7 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('equipment.create');
     }
 
     /**
@@ -33,9 +42,15 @@ class EquipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquipmentRequest $request)
     {
-        //
+        $equipment = new Equipment();
+        $equipment->name = $request->input('name');
+        $equipment->cost = $request->input('cost');
+        $equipment->maintenanceFreq = $request->input('maintenanceFrequency');
+        $equipment->supplierID = $request->input('supplierId');
+        $equipment->save();
+        return redirect('equipment');
     }
 
     /**
@@ -44,9 +59,23 @@ class EquipmentController extends Controller
      * @param  \App\Equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function show(Equipment $equipment)
+    public function show($id)
     {
-        //
+        if(!ctype_digit($id)){ // string consists of all digs, thus is an int
+            abort(404);
+        }
+
+        $equipment = Equipment::findOrFail($id);
+        // the 'findOrFail' basically does this: if(is_null($book)) abort(404);
+
+        $supplier = $equipment->supplier();
+
+        $renter = null;
+
+        if($equipment->user())
+            $renter = $equipment->user();
+
+        return view('equipment.show', compact( 'equipment', 'supplier', 'renter')); // compact() replaces with()
     }
 
     /**
@@ -57,7 +86,8 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        //
+        return view ('equipment.edit', compact('equipment'));
+
     }
 
     /**
@@ -67,7 +97,7 @@ class EquipmentController extends Controller
      * @param  \App\Equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Equipment $equipment)
+    public function update(EquipmentRequest $request, Equipment $equipment)
     {
         //
     }
@@ -78,8 +108,10 @@ class EquipmentController extends Controller
      * @param  \App\Equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Equipment $equipment)
+    public function destroy($id)
     {
-        //
+        Equipment::findOrFail($id)->delete();
+
+        return redirect('equipment');
     }
 }

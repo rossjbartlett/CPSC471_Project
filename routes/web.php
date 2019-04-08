@@ -31,5 +31,8 @@ Route::resource('departments', 'DepartmentController');
 
 Route::resource('users', 'UserController');
 
+Route::resource('suppliers', 'SupplierController');
+Route::resource('equipment', 'EquipmentController');
+
 
 // Route::resource('comments', 'CommentController');

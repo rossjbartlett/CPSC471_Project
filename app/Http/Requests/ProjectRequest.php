@@ -30,7 +30,7 @@ class ProjectRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'budget' => 'required|numeric',
-            // 'deptID' => 'required'
+            'departmentId' => 'required|numeric|exists:departments,id'
         ];
     }
 

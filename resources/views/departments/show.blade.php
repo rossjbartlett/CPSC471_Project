@@ -37,7 +37,7 @@
 
         <!--  Show the depts employees -->
         @if(sizeof($employees)>0)
-        <h4> Employees: <h4>
+        <h4> Employees: </h4>
           <div style="margin-left: 50px; font-size: 20px">
             @foreach($employees as $e)
                 -<a href="{{action('UserController@show',[$e->id])}}">
@@ -53,7 +53,7 @@
 
     <!--  Show the depts projects -->
     @if(sizeof($projects)>0)
-    <h4> Projects: <h4>
+    <h4> Projects: </h4>
       <div style="margin-left: 50px; font-size: 20px">
         @foreach($projects as $proj)
             -<a href="{{action('ProjectController@show',[$proj->id])}}">
@@ -62,7 +62,7 @@
         @endforeach
       </div>
     @else
-     <p> This department has no current projects.<p>
+     <p> This department has no current projects.</p>
     @endif
 
 

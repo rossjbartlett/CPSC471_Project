@@ -102,9 +102,12 @@
                 <a href="/projects">Projects</a>    
                 <a href="/departments">Departments</a>
                 <a href="/users">Employees</a>
+                <a href="/suppliers">Suppliers</a>
+                <a href="/equipment">Equipment</a>
         @else
                 <a href="/projects">Your Projects</a>
                 <a href="{{action('DepartmentController@show',[Auth()->User()->deptID])}}">Your Department</a>
+                <a href="/equipment">Equipment</a>
                 <!-- <a href="/users">Employees</a> -->
          @endif
 
