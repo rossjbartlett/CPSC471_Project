@@ -16,7 +16,7 @@ class Supplier extends Model
     ];
 
     public function equipment(){
-        return $this->hasMany(Equipment::class);
+        return Equipment::where('supplierID', $this->id)->get();
     }
 
 }

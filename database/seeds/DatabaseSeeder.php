@@ -5,6 +5,9 @@ use App\User;
 use App\Project;
 use App\Department;
 use App\WorksOn;
+use App\Supplier;
+use App\Equipment;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -103,6 +106,21 @@ class DatabaseSeeder extends Seeder
 			// $worksOn->user()->attach($user->id);
 			// $worksOn->project()->attach($proj->id);
 			$worksOn->save();
+
+			$supplier = new Supplier();
+			$supplier->name = 'Home Depot';
+			$supplier->address = '123 Supplier St NW Calgary';
+			$supplier->phone = '403-123-1234';
+			$supplier->email = 'homedepot@gmail.com';
+			$supplier->contactName = 'John Doe';
+			$supplier->save();
+
+            $equipment = new Equipment();
+            $equipment->name = 'Drill';
+            $equipment->cost = 700;
+            $equipment->maintenanceFreq = 'Once per year';
+            $equipment->supplierID = 1;
+            $equipment->save();
 
 		}
 

@@ -32,5 +32,11 @@ Route::resource('timesheets', 'TimesheetController');
 Route::resource('shifts', 'ShiftController');
 Route::resource('users', 'UserController');
 
+Route::resource('suppliers', 'SupplierController');
+Route::resource('equipment', 'EquipmentController');
+
+Route::get('equipment/rent/{id}', 'EquipmentController@rent');
+Route::get('equipment/return/{id}', 'EquipmentController@return');
+
 
 // Route::resource('comments', 'CommentController');

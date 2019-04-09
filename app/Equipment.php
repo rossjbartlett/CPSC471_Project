@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Supplier;
+use App\User;
+
 class Equipment extends Model
 {
    /**
@@ -12,16 +15,20 @@ class Equipment extends Model
      * @var array
      */
     protected $fillable = [
-        'name','cost', 'maintenanceFreq', 'lastMaintenance', 'userSIN'
+        'name','cost', 'maintenanceFreq', 'lastMaintenance', 'userSIN', 'supplierID'
       ];
-  
 
-      public function user(){
-        return $this->belongsTo(User::class);
-      }
+    public function isRented(){
+        return ($this->userSIN != null);
+    }
+
+    public function user(){
+        if($this->isRented())
+            return User::where('SIN', $this->userSIN)->first();
+    }
   
-      public function supplier(){
-        return $this->belongsTo(Supplier::class);
-      }
+    public function supplier(){
+        return Supplier::find($this->supplierID);
+    }
 
 }

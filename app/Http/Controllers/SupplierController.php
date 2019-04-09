@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SupplierRequest;
 use App\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('manager');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::orderBy('name')->get();
+        return view('suppliers.index')->with('suppliers', $suppliers);
     }
 
     /**
@@ -24,7 +31,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -33,9 +40,16 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
-        //
+        $supplier = new Supplier();
+        $supplier->name = $request->input('name');
+        $supplier->address = $request->input('address');
+        $supplier->email = $request->input('email');
+        $supplier->phone = $request->input('phone');
+        $supplier->contactName = $request->input('contactName');
+        $supplier->save();
+        return redirect('suppliers');
     }
 
     /**
@@ -44,9 +58,18 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show($id)
     {
-        //
+        if(!ctype_digit($id)){ // string consists of all digs, thus is an int
+            abort(404);
+        }
+
+        $supplier = Supplier::findOrFail($id);
+        // the 'findOrFail' basically does this: if(is_null($book)) abort(404);
+
+        $equipment  = $supplier->equipment();
+
+        return view('suppliers.show', compact('supplier', 'equipment')); // compact() replaces with()
     }
 
     /**
@@ -57,7 +80,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view ('suppliers.edit', compact('supplier'));
     }
 
     /**
@@ -67,9 +90,16 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(SupplierRequest $request, Supplier $supplier)
     {
-        //
+        $supplier->update([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'email' => $request->input('email'),
+            'contactName' => $request->input('contactName'),
+            'updated_at' => \Carbon\Carbon::now()
+        ]);
+        return redirect('suppliers');
     }
 
     /**
@@ -78,8 +108,10 @@ class SupplierController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
-        //
+        Supplier::findOrFail($id)->delete();
+
+        return redirect('suppliers');
     }
 }
