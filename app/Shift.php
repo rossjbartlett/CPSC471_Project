@@ -12,13 +12,20 @@ class Shift extends Model
      * @var array
      */
     protected $fillable = [
-        'day', 'startTime', 'endTime', 'contactName', 'month', 'year'
+        'day', 'startTime', 'endTime', 'month', 'year', 'SIN'
     ];
 
     public function timesheet(){
-        return $this->belongsTo(Timesheet::class);
+        $timesheet = Timesheet::where('year','=',$this->year)->where('month','=',$this->month)->get();
+        if (!empty($timesheet)) {
+            return $timesheet[0];
+        } else {
+            return null; //shouldn't ever get here :) 
+        }
+        
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        $user = User::where('SIN','=',$this->SIN)->get();
+        return $user[0];
     }
 }

@@ -80,7 +80,7 @@ class User extends Authenticatable
     }
 
     public function timesheets(){
-        return $this->hasMany(Timesheet::class);
+        return Timesheet::where('SIN','=',$this->SIN)->get();
     }
 
     public function department(){

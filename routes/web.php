@@ -28,7 +28,8 @@ Route::resource('authors', 'AuthorController');
 
 Route::resource('projects', 'ProjectController');
 Route::resource('departments', 'DepartmentController');
-
+Route::resource('timesheets', 'TimesheetController');
+Route::resource('shifts', 'ShiftController');
 Route::resource('users', 'UserController');
 
 

@@ -12,15 +12,16 @@ class Timesheet extends Model
      * @var array
      */
     protected $fillable = [
-        'month', 'year'
+        'month', 'year', 'SIN'
     ];
 
     public function shifts(){
-        return $this->hasMany(Shift::class);
+        return Shift::where('SIN','=',$this->SIN)->where('month','=',$this->month)->where('year','=',$this->year)->get();
     }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        $user = User::where('SIN','=',$this->SIN)->get();
+        return $user[0];
     }
 
 }

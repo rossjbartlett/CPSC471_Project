@@ -17,8 +17,12 @@
 <h4> Email: {{$user->email}}</h4>
 <h4> SIN: {{$user->SIN}}</h4>
 <h4> DOB: {{$user->DOB}}</h4>
-<h4> Department: <a href="{{action('DepartmentController@show',[$user->deptID])}}">
-                {{$user->department()->name}}</a>
+<h4> Department: 
+    @if($user->department() != null) 
+        <a href="{{action('DepartmentController@show',[$user->deptID])}}">{{$user->department()->name}}</a>
+    @else 
+        None
+    @endif
 </h4>
 <hr>
 @if($user->isManager)

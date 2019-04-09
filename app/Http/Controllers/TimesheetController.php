@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Timesheet;
+use App\User;
+
 use Illuminate\Http\Request;
 
 class TimesheetController extends Controller
@@ -14,7 +16,15 @@ class TimesheetController extends Controller
      */
     public function index()
     {
-        //
+        $u = Auth()->User();
+        $users = [];
+        $timesheets = [];
+        if ($u->isManager()) {
+            $users = User::all();      
+        }
+        else
+            $timesheets = $u->timesheets();     //get only their time sheets
+        return view('timesheets.index')->with('timesheets', $timesheets)->with('users',$users);
     }
 
     /**
@@ -46,7 +56,15 @@ class TimesheetController extends Controller
      */
     public function show(Timesheet $timesheet)
     {
-        //
+       
+        $u = Auth()->User();
+        if (($u->SIN == $timesheet->SIN) || $u->isManager()) { // only show your own 
+            $shifts = $timesheet->shifts();
+            return view('timesheets.show', compact('timesheet', 'shifts'));
+        } else {
+            return redirect('timesheets');
+        }
+
     }
 
     /**
