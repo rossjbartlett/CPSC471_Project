@@ -6,13 +6,14 @@
 
 <hr>
 
-<div style="padding-right: 80px;float: right;">
+<!-- EDIT BUTTON  -->
+<!-- <div style="padding-right: 80px;float: right;">
     {!! Form::open(['method' => 'Get', 'route' => ['users.edit', $user->id]]) !!}
     <div class="form-group" style="padding-top: 5px">
         {!! Form::submit('Edit User', ['class' => 'btn btn-primary btn-sm']) !!}
     </div>
     {!! Form::close() !!}
-</div>
+</div> -->
 
 <h4> Email: {{$user->email}}</h4>
 <h4> SIN: {{$user->SIN}}</h4>

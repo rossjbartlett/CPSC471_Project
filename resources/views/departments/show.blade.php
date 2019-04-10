@@ -5,7 +5,6 @@
     <h1> {{$department->name}} Department</h1>
     <hr>
         <h2> ID: {{$department->id}}</h2>
-        <!-- <h4> Manager SIN: {{$department->managerSIN}}</h4> -->
 
         @if($department->hasManager())
           <h4> Manager: <a href="{{action('UserController@show',[$department->manager()->id])}}">
@@ -16,17 +15,18 @@
           This department has no manager.
         @endif
 
+        <!-- These are hidden now. dont need -->
           @if(Auth::check() && Auth::user()->isManager())
               <div class="btn-group-vertical" style="float:right;font-size:15px;padding:5px">
                   <!--  DELETE BUTTON   -->
                   {!! Form::model($department, ['method'=>'DELETE', 'action'=>['DepartmentController@destroy',$department->id]]) !!}
-                  {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger btn-sm']) !!}
+                  <!-- {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger btn-sm']) !!} -->
                   {!! Form::close() !!}
-                  </div>
+                </div>
               <div class="btn-group-vertical" style="float:right;font-size:15px;padding:5px">
                   <!-- EDIT BUTTON   -->
                   {!! Form::model($department, ['method'=>'GET', 'action'=>['DepartmentController@edit',$department->id]]) !!}
-                  {!! Form::submit('Edit', ['class' => 'btn btn-outline-danger btn-sm']) !!}
+                  <!-- {!! Form::submit('Edit', ['class' => 'btn btn-outline-danger btn-sm']) !!} -->
                   {!! Form::close() !!}
               </div>
           @endif

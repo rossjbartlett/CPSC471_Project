@@ -79,10 +79,10 @@
                     @endif
 
                     You are logged in.<br>
-                    Welcome, {{Auth::user()->fName}} {{Auth::user()->lName}}!<br>
-                    Your ID on this system is {{Auth()->user()->id}}.<br>
+                    Welcome, {{$user->fName}} {{$user->lName}}!<br>
+                    Your ID on this system is {{$user->id}}.<br>
 
-                    @if (Auth()->user()->isManager())
+                    @if ($user->isManager())
                         <span style="color:blue">You are a manager.</span>
                     @endif
 
@@ -98,6 +98,8 @@
         </div>
 
         <div class="links">
+            <a href="{{action('UserController@show',[$user->id])}}">Your Info</a>
+
         @if(Auth()->user()->isManager())                
                 <a href="/projects">Projects</a>    
                 <a href="/departments">Departments</a>
