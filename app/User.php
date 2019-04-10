@@ -93,9 +93,8 @@ class User extends Authenticatable
         return Department::where('managerSIN', '=', $this->SIN)->get();
     }
 
-    //TODO return just the numbers
     public function phoneNumbers(){
-        return $this->hasMany(EmployeePhone::class);
+        return EmployeePhone::where('SIN', $this->SIN)->get();
     }
 
     //equipment they currently have rented out

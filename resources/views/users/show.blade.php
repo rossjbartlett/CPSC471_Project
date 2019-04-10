@@ -25,6 +25,13 @@
         None
     @endif
 </h4>
+<h4>Phone number(s):
+<div style="margin-left: 50px; font-size: 20px">
+    @foreach($phone_numbers as $pn)
+        -{{$pn->phone}}<br>
+    @endforeach
+</div>
+</h4>
 <hr>
 @if($user->isManager)
 <h5>{{$user->fName}} is a Manager.</h5>

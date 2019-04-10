@@ -10,6 +10,7 @@ use App\Supplier;
 use App\Equipment;
 use App\Timesheet;
 use App\Shift;
+use App\EmployeePhone;
 
 
 class DatabaseSeeder extends Seeder
@@ -259,6 +260,26 @@ class DatabaseSeeder extends Seeder
 			$s->month = 3;
 			$s->year = 2019;
 			$s->save();
+
+			$pn = new EmployeePhone();
+			$pn->SIN = 123456789;
+			$pn->phone = 4031234567;
+			$pn->save();
+
+            $pn = new EmployeePhone();
+            $pn->SIN = 123456789;
+            $pn->phone = 4039876543;
+            $pn->save();
+
+            $pn = new EmployeePhone();
+            $pn->SIN = 987654321;
+            $pn->phone = 4031234444;
+            $pn->save();
+
+            $pn = new EmployeePhone();
+            $pn->SIN = 123456789;
+            $pn->phone = 4039876666;
+            $pn->save();
 
 
 		}
