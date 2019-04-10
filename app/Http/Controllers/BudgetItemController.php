@@ -6,6 +6,7 @@ use App\BudgetItem;
 use App\Project;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\BudgetItemRequest;
 
 class BudgetItemController extends Controller
 {
@@ -42,7 +43,7 @@ class BudgetItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BudgetItemRequest $request)
     {
         $b = new BudgetItem();
         // dd($request);
