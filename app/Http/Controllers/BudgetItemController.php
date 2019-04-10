@@ -28,9 +28,12 @@ class BudgetItemController extends Controller
      */
     public function create(Request $r)
     {
-        dd("here");
+        $projectID = $r->input('projectID');
+        // dd($projectID);
+        // dd($project);
         // abort(404);
-        return view('budgetItems.create', compact('project'));
+        //todo need to get project
+        return view('budgetItems.create', compact('projectID'));
     }
 
     /**
@@ -42,12 +45,14 @@ class BudgetItemController extends Controller
     public function store(Request $request)
     {
         $b = new BudgetItem();
-        $b->projectID = 1; //TODO 
+        // dd($request);
+        $b->projectID = $request->input('projectID'); //TODO 
         $b->name = $request->input('name');
         $b->date = $request->input('date');
         $b->value = $request->input('value');
         $b->description = $request->input('description');
         $b->save();
+        return redirect('projects/'.$request->input('projectID'));
     }
 
     /**

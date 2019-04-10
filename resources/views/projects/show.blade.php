@@ -61,11 +61,20 @@
       <p> This project has no budget items.<p>
     @endif
     @if(Auth::user()->isManager())
-        <button class="btn btn-outline-danger btn-sm" href="{{action('BudgetItemController@create')}}" style="float:right;font-size:15px;padding:5px">
+        <!-- <button class="btn btn-outline-danger btn-sm" href="{{action('BudgetItemController@create')}}" style="float:right;font-size:15px;padding:5px">
           Add Budget Item
           <input name="projectID" type="hidden" value="{{$project->id}}">
 
-        </button>
+        </button> -->
+        <form method="GET" action="{{ action('BudgetItemController@create') }}" accept-charset="UTF-8">
+							<!-- <input name="_method" type="hidden" value="GET"> -->
+              <!-- @csrf -->
+              <input name='projectID' type="hidden" value="{{$project->id}}">
+              
+							<br>
+							<button type="submit" class="btn btn-sm" style="background-color:#6DD1B0;color:white;">Add Budget Item</button>
+          </form>
+
     @endif
 
 

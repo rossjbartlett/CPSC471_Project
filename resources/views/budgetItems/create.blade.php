@@ -9,9 +9,12 @@
   
     {!! Form::open(['url'=>'budgetItems']) !!}
         @include ('budgetItems.form', ['submitButtonText'=>'Add BudgetItem'])
+
+    {!! Form::hidden('projectID', $projectID) !!}
+
     {!! Form::close() !!}
 
-    
+
     @include ('errors.list')
 
     
