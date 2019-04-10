@@ -47,9 +47,8 @@
 <h4> Project(s): <h4>
   <div style="margin-left: 50px; font-size: 20px">
     @foreach($projects_hours as $ph)
-        -<a href="{{action('ProjectController@show',[$ph['project']['id']])}}">
-          {{$ph['project']['name']}}
-        </a>, {{$ph['hours']}}h<br>
+        -<a href="{{action('ProjectController@show',[$ph['project']['id']])}}">{{$ph['project']['name']}}</a>, {{$ph['hours']}}h
+        <br>
     @endforeach
   </div>
 @else
