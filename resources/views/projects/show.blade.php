@@ -57,6 +57,7 @@
             <br>
         @endforeach
       </div>
+      <h5>Net: ${{$net}}</h5>
     @else
       <p> This project has no budget items.<p>
     @endif

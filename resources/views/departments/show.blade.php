@@ -37,7 +37,7 @@
 
         <!--  Show the depts employees -->
         @if(sizeof($employees)>0)
-        <h4> Employees: </h4>
+        <h4> This department has {{sizeof($employees)}} employee(s):</h4>
           <div style="margin-left: 50px; font-size: 20px">
             @foreach($employees as $e)
                 -<a href="{{action('UserController@show',[$e->id])}}">

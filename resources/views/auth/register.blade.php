@@ -102,6 +102,20 @@
                                 @endif
                             </div>
                         </div>
+
+                        <!-- phone nums -->
+                        <div class="form-group row">
+                            <label for="phoneNumbers" class="col-md-4 col-form-label text-md-right">{{ __('Phone Numbers') }}</label>
+                            <div class="col-md-6">
+                                <input id="phoneNumbers" type="text" class="form-control{{ $errors->has('phoneNumbers') ? ' is-invalid' : '' }}" name="phoneNumbers" placeholder="Seperate with a comma and a space" >
+
+                                @if ($errors->has('phoneNumbers'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phoneNumbers') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         
 
                         <!-- salary -->

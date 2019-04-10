@@ -78,8 +78,13 @@ class ProjectController extends Controller
 
         // $employees  = $project->users();
         $employees_hours = $project->employee_hours();
+
+        $net = 0;
+        foreach($budgetItems as $b){
+            $net += $b->value;
+        }
         // dd($employees_hours);
-        return view('projects.show', compact('project', 'employees_hours', 'budgetItems')); // compact() replaces with()    }
+        return view('projects.show', compact('project', 'employees_hours', 'budgetItems','net')); // compact() replaces with()    }
     }
     /**
      * Show the form for editing the specified resource.

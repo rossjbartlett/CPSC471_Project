@@ -17,7 +17,7 @@ class CreateEmployeePhonesTable extends Migration
             $table->bigIncrements('id');
 
             $table->integer('SIN');
-            $table->foreign('SIN')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('SIN')->references('SIN')->on('users')->onDelete('cascade');
             $table->string('phone');
             
             $table->timestamps();

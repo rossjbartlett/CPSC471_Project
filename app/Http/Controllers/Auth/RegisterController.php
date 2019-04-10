@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\EmployeePhone;
 
 class RegisterController extends Controller
 {
@@ -56,6 +57,7 @@ class RegisterController extends Controller
             'address' => ['required', 'string', 'max:255'],
             'DOB' => ['required', 'string', 'max:50'], //['date' , 'date_format:Y-m-d'], 
             'salary' => ['required', 'numeric'],
+            'phone' => ['string'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -68,7 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $u =  User::create([
             'email' => $data['email'],
             'SIN' => $data['SIN'],
             'isManager' => false,
@@ -79,5 +81,15 @@ class RegisterController extends Controller
             'salary' => $data['salary'],
             'password' => Hash::make($data['password'])
         ]);
+
+        $phones = explode(', ', $data['phoneNumbers']);
+        foreach($phones as $p){
+            EmployeePhone::create([
+            'phone' => $p,
+            'SIN' => $data['SIN'],
+            ]);
+        }
+
+        return $u;
     }
 }
