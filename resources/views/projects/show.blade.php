@@ -50,13 +50,22 @@
     <h4> Budget Items: <h4>
       <div style="margin-left: 50px; font-size: 20px">
         @foreach($budgetItems as $b)
-            -<a href="{{action('UserController@show',[$b->id])}}">
+        <!-- put curly braces arround action() -->
+            -<a href="{{action('BudgetItemController@show',[$b])}}">
               {{$b->name}}, ${{$b->value}}
-            </a><br>
+            </a>
+            <br>
         @endforeach
       </div>
     @else
       <p> This project has no budget items.<p>
+    @endif
+    @if(Auth::user()->isManager())
+        <button class="btn btn-outline-danger btn-sm" href="{{action('BudgetItemController@create')}}" style="float:right;font-size:15px;padding:5px">
+          Add Budget Item
+          <input name="projectID" type="hidden" value="{{$project->id}}">
+
+        </button>
     @endif
 
 

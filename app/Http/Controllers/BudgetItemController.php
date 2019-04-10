@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BudgetItem;
+use App\Project;
+
 use Illuminate\Http\Request;
 
 class BudgetItemController extends Controller
@@ -17,14 +19,18 @@ class BudgetItemController extends Controller
         //
     }
 
+
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $r)
     {
-        //
+        dd("here");
+        // abort(404);
+        return view('budgetItems.create', compact('project'));
     }
 
     /**
@@ -35,7 +41,13 @@ class BudgetItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $b = new BudgetItem();
+        $b->projectID = 1; //TODO 
+        $b->name = $request->input('name');
+        $b->date = $request->input('date');
+        $b->value = $request->input('value');
+        $b->description = $request->input('description');
+        $b->save();
     }
 
     /**
@@ -46,7 +58,9 @@ class BudgetItemController extends Controller
      */
     public function show(BudgetItem $budgetItem)
     {
-        //
+        $project  = $budgetItem->project();
+        // dd($project);
+        return view('budgetItems.show', compact('budgetItem', 'project')); // compact() replaces with()
     }
 
     /**

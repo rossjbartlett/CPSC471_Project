@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Project;
 
 class BudgetItem extends Model
 {
@@ -12,12 +13,15 @@ class BudgetItem extends Model
      * @var array
      */
     protected $fillable = [
-        'name','date', 'value', 'description',
+        'name','date', 'value', 'description','projectID'
       ];
   
 
       public function project(){
-        return $this->belongsTo(Project::class);
+        // return $this->belongsTo(Project::class);
+        $p = Project::where('id', '=', $this->projectID)->get()->first();
+        // dd($p);
+        return $p;
       }
       
 }

@@ -54,9 +54,10 @@ class Project extends Model
       public function budgetItems(){
         // return $this->hasMany(BudgetItem::class);
         $items  = [];
-        foreach($items as $b) {
-            $b = BudgetItem::where('projectID', '=', $this->id)->get();
-            if($b) array_push($items, $b);
+        $budgetItems = BudgetItem::where('projectID', '=', $this->id)->get();
+        // dd($budgetItems);
+        foreach($budgetItems as $b) {
+          array_push($items, $b);
         }
         return $items;
       }

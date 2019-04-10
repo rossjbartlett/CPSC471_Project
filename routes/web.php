@@ -20,17 +20,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::post('books/{book}/subscribe', 'BookController@subscribe');
-// Route::post('books/{book}/unsubscribe', 'BookController@unsubscribe');
-
-Route::resource('books', 'BookController');
-Route::resource('authors', 'AuthorController');
 
 Route::resource('projects', 'ProjectController');
 Route::resource('departments', 'DepartmentController');
 Route::resource('timesheets', 'TimesheetController');
 Route::resource('shifts', 'ShiftController');
 Route::resource('users', 'UserController');
+
+Route::resource('budgetItems', 'BudgetItemController');
 
 Route::resource('suppliers', 'SupplierController');
 Route::resource('equipment', 'EquipmentController');
@@ -39,4 +36,3 @@ Route::get('equipment/rent/{id}', 'EquipmentController@rent');
 Route::get('equipment/return/{id}', 'EquipmentController@return');
 
 
-// Route::resource('comments', 'CommentController');
