@@ -277,7 +277,7 @@ class DatabaseSeeder extends Seeder
             $pn->save();
 
             $pn = new EmployeePhone();
-            $pn->SIN = 123456789;
+            $pn->SIN = 987654321;
             $pn->phone = 4039876666;
             $pn->save();
 
