@@ -41,11 +41,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //when you call books() from a User object, it returns all the Book of the User (subscribed to)
-    public function books(){
-        return $this->hasMany(Book::class);
-    }
-
     public function works_on(){
         // return $this->hasMany(WorksOn::class);    //TODO this isnt working because its looking for userID in works_on to relate the 2 tables, we need it to use SIN instead 
         return $works = WorksOn::where('SIN', '=', $this->SIN)->get();
@@ -109,26 +104,17 @@ class User extends Authenticatable
         $p = $w->where('projectID','=',$projID);
         return !($p->isEmpty());
     }
+    
+    public function supervisor(){
+        return User::where('SIN','=',$this->supervisorSIN)->get()->first();
+    }
 
+    public function isSupervisor(){
+        return User::where('supervisorSIN','=',$this->SIN)->count()>0;
+    }
 
-
-    // has the user ever subscribed to book
-    // public function hasEverSubscribed($book_id)
-    // {
-    //     $Subscribed = $this->subscriptions()->where('book_id', '=', $book_id)->get();
-    //     return !($Subscribed->isEmpty());
-    // }
-
-    //is the user currently subscribed to the book
-    // public function isCurrentSubscriber($book_id)
-    // {
-    //     $book = Book::findOrFail($book_id);
-    //     return ($this->id == $book->subscription_status);
-    // }
-
-    // public function otherSubscriberExists($book_id){
-    //   $book = Book::findOrFail($book_id);
-    //   return !(empty($book->subscription_status));
-    // }
+    public function supervisees(){
+        return User::where('supervisorSIN','=',$this->SIN)->get();
+    }
 
   }

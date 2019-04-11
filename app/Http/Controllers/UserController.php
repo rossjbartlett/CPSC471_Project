@@ -46,7 +46,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $projects_hours  = $user->projects_hours();
         $phone_numbers = $user->phoneNumbers();
-        return view('users.show', compact('user', 'projects_hours', 'phone_numbers'));
+        $supervisorID = $user->supervisor()==null? null:$user->supervisor()->id;
+        return view('users.show', compact('user', 'projects_hours', 'phone_numbers','supervisorID'));
     }
 
 

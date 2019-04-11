@@ -21,6 +21,9 @@
 <h4> Department: 
     @if($user->department() != null) 
         <a href="{{action('DepartmentController@show',[$user->deptID])}}">{{$user->department()->name}}</a>
+        @if($user->deptStartDate!=null && $user->deptStartDate!='')
+          since {{$user->deptStartDate}}
+        @endif
     @else 
         None
     @endif
@@ -32,7 +35,9 @@
     @endforeach
 </div>
 </h4>
+
 <hr>
+
 @if($user->isManager)
 <h5>{{$user->fName}} is a Manager.</h5>
 <h4> Managed Department(s): <h4>
@@ -45,7 +50,31 @@
   </div>
  @else 
  <h5>{{$user->fName}} is not a Manager.</h5>
+@endif
+<hr>
 
+@if($supervisorID!=null)
+<h4> Supervisor: <a href="{{action('UserController@show',[$supervisorID])}}">
+          {{$user->supervisor()->fName}} {{$user->supervisor()->lName}}
+        </a><h4>
+ @else 
+ <h5>{{$user->fName}} has no Supervisor.</h5>
+@endif
+
+<hr>
+
+@if($user->isSupervisor())
+<h5>{{$user->fName}} is a Supervisor.</h5>
+<h4> Supervisees: <h4>
+  <div style="margin-left: 50px; font-size: 20px">
+    @foreach($user->supervisees() as $s)
+        -<a href="{{action('UserController@show',[$s->id])}}">
+          {{$s->fName}} {{$s->lName}}
+        </a><br>
+    @endforeach
+  </div>
+ @else 
+ <h5>{{$user->fName}} is not a Supervisor.</h5>
 @endif
 
 <hr>
