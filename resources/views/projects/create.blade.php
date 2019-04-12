@@ -6,9 +6,10 @@
     <h1>Create New Project</h1>
     <hr>
 
+
   
     {!! Form::open(['url'=>'projects']) !!}
-        @include ('projects.form', ['submitButtonText'=>'Create Project', 'editFlag' =>'false'])
+        @include ('projects.form', ['submitButtonText'=>'Create Project'])
     {!! Form::close() !!}
 
     

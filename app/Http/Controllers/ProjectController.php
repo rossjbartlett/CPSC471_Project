@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Department;
+
 use Illuminate\Http\Request;
 use App\BudgetItem;
 use App\WorksOn;
@@ -41,7 +43,12 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $departments_names_ids = [];
+        foreach(Department::all() as $d){
+            $departments_names_ids[$d->id] = $d->name;
+        }
+        // dd($department_names_ids);
+        return view('projects.create', compact('departments_names_ids'));
 
     }
 
@@ -96,7 +103,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view ('projects.edit', compact('project'));
+        $departments_names_ids = [];
+        foreach(Department::all() as $d){
+            $departments_names_ids[$d->id] = $d->name;
+        }
+        return view ('projects.edit', compact('project','departments_names_ids'));
     }
 
     /**
