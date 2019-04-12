@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use App\BudgetItem;
+use App\WorksOn;
+
 use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
@@ -123,8 +125,12 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        Project::findOrFail($id)->delete();
-
+        $p = Project::findOrFail($id);
+        $u = $p->users();
+        if(!empty($u)){
+            WorksOn::where('projectID',$id)->delete();
+        }
+        $p->delete();
         return redirect('projects');
     }
 }
