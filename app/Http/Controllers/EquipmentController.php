@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Equipment;
 use App\Http\Requests\EquipmentRequest;
+use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,11 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        return view('equipment.create');
+        $suppliers = Supplier::all();
+        $select = [];
+        foreach($suppliers as $s)
+            $select[$s->id] = $s->name;
+        return view('equipment.create', compact('select'));
     }
 
     /**
@@ -94,8 +99,12 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        return view ('equipment.edit', compact('equipment'));
+        $suppliers = Supplier::all();
+        $select = [];
+        foreach($suppliers as $s)
+            $select[$s->id] = $s->name;
 
+        return view ('equipment.edit', compact('equipment', 'select'));
     }
 
     /**

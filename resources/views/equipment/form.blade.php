@@ -16,7 +16,7 @@
 
 <div class="form-group">
     {!! Form::label('supplierID', 'Supplier ID:') !!}
-    {!! Form::text('supplierID', null, ['class'=>'form-control']) !!}
+    {!! Form::select('supplierID', $select, null, ['class'=>'form-control']) !!}
 </div>
 
 <div class="form-group">
