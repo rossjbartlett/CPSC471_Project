@@ -91,6 +91,7 @@ class DatabaseSeeder extends Seeder
 				'address' => '321 Varsity Ave Calgary',
 				'DOB' => '03/05/1996',
 				'salary' => 3000000,
+				'supervisorSIN' => $ross->SIN,
 				'password' => Hash::make('password')
 			]);
 
